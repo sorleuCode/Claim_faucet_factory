@@ -1,33 +1,57 @@
 import {
     loadFixture,
   } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-  import { expect } from "chai";
+  import { expect, should } from "chai";
   import { ethers } from "hardhat"; // Import ethers directly
   import "@nomicfoundation/hardhat-toolbox";
   import "@nomicfoundation/hardhat-ethers";
   
   describe("Claim_Faucet_Factory", function () {
+
+    let token1 = {
+      name: "SoliuToken",
+      symbol: "SLT"
+    }
   
-    async function deployFaucetFixture() {
+    async function deployClaimFaucetFactoryFixture() {
       const  ClaimFaucetFactory = await ethers.getContractFactory("ClaimFaucetFactory");
-      const faucet = await ClaimFaucetFactory.deploy();
+      const claimFaucetFactory = await ClaimFaucetFactory.deploy();
   
-      const [owner, addr1, addr2, addr3] = await ethers.getSigners(); // Get signers
+      const [deployer] = await ethers.getSigners(); // Get signers
   
   
-      return { faucet, owner, addr1, addr2, addr3 };
+      return { claimFaucetFactory, deployer};
     }
     
     describe('Deploy', () => {
+      it("Should deploy claimaFaucetFactory correctly", async function name() {
 
+        const {claimFaucetFactory} =  await loadFixture(deployClaimFaucetFactoryFixture);
 
+        expect( await claimFaucetFactory.getAddress()).to.be.properAddress;
+        
+      });
+
+  
+      
+    });
+
+    describe('Functions', () => {
+      it("should deploy ClaimFaucet contract correctly", async function () {
+        
+      
+        const {claimFaucetFactory} = await loadFixture(deployClaimFaucetFactoryFixture);
+        const deployedAddress =  await claimFaucetFactory.deployClaimFaucet(token1.name, token1.symbol);
+
+         expect(deployedAddress).to.be.properAddress;
+
+      })
       
     })
     
-    it("should deploy and set the owner correctly", async function () {
-      const { faucet, owner } = await loadFixture(deployFaucetFixture);
-  
-    });
+
+
+   
   
    
   
