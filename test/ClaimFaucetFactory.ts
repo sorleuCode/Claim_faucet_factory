@@ -98,7 +98,7 @@ import {
         
       });
 
-      it("should get all the deployed contracts on this  platform", async function () {
+      it("should get all the deployed contracts on this platform", async function () {
         const { claimFaucetFactory, deployer, otherAccount } = await loadFixture(deployClaimFaucetFactoryFixture);
       
         await claimFaucetFactory.connect(deployer).deployClaimFaucet(token1.name, token1.symbol);
@@ -131,15 +131,5 @@ import {
     })
     
 
-
-   
-  
-   
-  
-  
-  
-   
-  
-  
   });
   
